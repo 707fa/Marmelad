@@ -1,47 +1,144 @@
-interface Product {
+// src/components/Shop/Products.tsx
+import React from 'react';
+import ProductCard from './ProductCard';
+
+export interface Product {
   id: number;
   name: string;
-  price: string;
-  emoji: string;
-  tag?: string;
+  price: number;
+  description: string;
+  image: string;
+  category: string;
+  rating: number;
 }
 
-const products: Product[] = [
-  { id: 1, name: "Клубничный мармелад", price: "150₽", emoji: "🍓", tag: "Хит" },
-  { id: 2, name: "Лимонный мармелад", price: "120₽", emoji: "🍋" },
-  { id: 3, name: "Апельсиновый мармелад", price: "130₽", emoji: "🍊", tag: "Акция" },
-  { id: 4, name: "Яблочный мармелад", price: "140₽", emoji: "🍏" },
+interface ProductsProps {
+  addToCart: (item: any) => void;
+  limit?: number;
+}
+
+const allProducts: Product[] = [
+  {
+    id: 1,
+    name: 'Мармелад Клубника',
+    price: 150,
+    description: 'Нежный мармелад из сока клубники с сахаром и пектином',
+    image: '🍓',
+    category: 'Ягодные',
+    rating: 4.8,
+  },
+  {
+    id: 2,
+    name: 'Мармелад Апельсин',
+    price: 140,
+    description: 'Яркий и сочный мармелад с ароматом свежего апельсина',
+    image: '🍊',
+    category: 'Цитрусовые',
+    rating: 4.7,
+  },
+  {
+    id: 3,
+    name: 'Мармелад Лимон',
+    price: 140,
+    description: 'Кислый и бодрящий мармелад со вкусом лимона',
+    image: '🍋',
+    category: 'Цитрусовые',
+    rating: 4.6,
+  },
+  {
+    id: 4,
+    name: 'Мармелад Виноград',
+    price: 160,
+    description: 'Насыщенный фиолетовый мармелад с вкусом спелого винограда',
+    image: '🍇',
+    category: 'Ягодные',
+    rating: 4.9,
+  },
+  {
+    id: 5,
+    name: 'Мармелад Вишня',
+    price: 160,
+    description: 'Глубокий вкус спелой вишни в нежном мармеладе',
+    image: '🍒',
+    category: 'Ягодные',
+    rating: 4.8,
+  },
+  {
+    id: 6,
+    name: 'Мармелад Яблоко',
+    price: 130,
+    description: 'Свежий и сладкий мармелад из спелых яблок',
+    image: '🍎',
+    category: 'Фрукты',
+    rating: 4.5,
+  },
+  {
+    id: 7,
+    name: 'Мармелад Груша',
+    price: 135,
+    description: 'Нежный мармелад с тонким ароматом груши',
+    image: '🍐',
+    category: 'Фрукты',
+    rating: 4.7,
+  },
+  {
+    id: 8,
+    name: 'Мармелад Персик',
+    price: 155,
+    description: 'Сладкий мармелад со вкусом спелого персика',
+    image: '🍑',
+    category: 'Фрукты',
+    rating: 4.8,
+  },
+  {
+    id: 9,
+    name: 'Микс Ягод',
+    price: 180,
+    description: 'Ассортимент из клубники, черники и малины',
+    image: '🎯',
+    category: 'Ассортимент',
+    rating: 5.0,
+  },
+  {
+    id: 10,
+    name: 'Экзотик Микс',
+    price: 200,
+    description: 'Манго, ананас, кокос - вкус экзотики в мармеладе',
+    image: '🥭',
+    category: 'Экзотические',
+    rating: 4.9,
+  },
+  {
+    id: 11,
+    name: 'Чёрная смородина',
+    price: 165,
+    description: 'Терпкий и благородный вкус чёрной смородины',
+    image: '⚫',
+    category: 'Ягодные',
+    rating: 4.6,
+  },
+  {
+    id: 12,
+    name: 'Малина Premium',
+    price: 170,
+    description: 'Премиум мармелад из малины высшего качества',
+    image: '🟥',
+    category: 'Ягодные',
+    rating: 4.9,
+  },
 ];
 
-const Products = () => {
-  return (
-    <section className="max-w-7xl mx-auto px-6 py-20">
-      <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
-        Наш мармелад 🍬
-      </h2>
+const Products: React.FC<ProductsProps> = ({ addToCart, limit }) => {
+  const products = limit ? allProducts.slice(0, limit) : allProducts;
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {products.map((p) => (
-          <div
-            key={p.id}
-            className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition-transform"
-          >
-            <div className="text-6xl mb-4">{p.emoji}</div>
-            <h3 className="text-lg font-semibold text-gray-800">{p.name}</h3>
-            <p className="text-pink-500 font-bold mt-2">{p.price}</p>
-            {p.tag && (
-              <span className="mt-2 px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-sm font-medium">
-                {p.tag}
-              </span>
-            )}
-            <button className="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full font-semibold transition">
-              Купить
-            </button>
-          </div>
-        ))}
-      </div>
-    </section>
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {products.map(product => (
+        <ProductCard key={product.id} product={product} addToCart={addToCart} />
+      ))}
+    </div>
   );
 };
 
 export default Products;
+export { allProducts };

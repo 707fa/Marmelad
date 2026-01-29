@@ -1,19 +1,32 @@
 import Header from "../components/layout/Header";
-import Products from "../components/Shop/Products";
 import WhyUs from "../components/Home/WhyUs";
 import Reviews from "../components/Home/Reviews";
 import Footer from "../components/layout/Footer";
+import Products from "../components/Shop/Products";
+import { Link } from 'react-router-dom';
 
-const Home = () => {
+interface HomeProps {
+  addToCart: (item: any) => void;
+}
+
+const Home = ({ addToCart }: HomeProps) => {
   return (
-   <main className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-orange-50 to-yellow-50">
-  {/* Decorative colorful blobs */}
-  <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-300 rounded-full blur-3xl opacity-30 animate-blob"></div>
-  <div className="absolute top-1/4 -right-32 w-96 h-96 bg-yellow-300 rounded-full blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-  <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-orange-300 rounded-full blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-  <div className="relative z-10">
+   <main className="bg-white">
+  
+  <div>
       <Header />
-      <Products />
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="flex justify-between items-center mb-12">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900">Популярные товары</h2>
+            <p className="text-gray-600 mt-2">Лучший выбор мармеладов от проверенных производителей</p>
+          </div>
+          <Link to="/products" className="px-6 py-2.5 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition">
+            Смотреть все →
+          </Link>
+        </div>
+        <Products addToCart={addToCart} limit={8} />
+      </section>
       <WhyUs />
       <Reviews />
       <Footer />
